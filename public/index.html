@@ -70,7 +70,7 @@
         margin-top: 5px;
         display: inline-block;
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         color: #ffffff;
         background-color: #000000;
         border: none;
@@ -106,7 +106,7 @@
       }
 
       #generateTokenModal .modal-body {
-        font-size: 1.1rem;
+        font-size: 0.8rem;
       }
 
       #useJSONBtn,
@@ -122,7 +122,7 @@
     </style>
   </head>
   <body>
-    <header class="py-3 mb-4">
+    <header class="py-3 mb-2">
       <div class="container d-flex justify-content-between align-items-center">
         <h1 class="h4 mb-0"><b> Push Notification Tester </b></h1>
         <nav>
@@ -132,12 +132,13 @@
       </div>
     </header>
 
-    <div class="container py-5">
+    <div class="container py-1">
       <div class="card shadow">
+      <div class="d-flex justify-content-between">
         <div class="card-body">
-          <h5 class="text-start mb-4"><b>Push Notification Details</b></h5>
+          <h6 class="text-start mb-2"><b>Push Notification Details</b></h5>
           <form>
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="accessToken" class="form-label"
                 >Access Token <span class="text-muted">(Required)</span></label
               >
@@ -150,7 +151,7 @@
                 />
                 <button
                   type="button"
-                  class="generate-token-btn"
+                  class="generate-token-btn btn-sm"
                   data-bs-toggle="modal"
                   data-bs-target="#generateTokenModal"
                 >
@@ -159,7 +160,7 @@
               </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="deviceToken" class="form-label"
                 >Device Token <span class="text-muted">(Required)</span></label
               >
@@ -171,7 +172,7 @@
               />
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="projectId" class="form-label"
                 >Project ID <span class="text-muted">(Required)</span></label
               >
@@ -183,7 +184,7 @@
               />
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="title" class="form-label"
                 >Title <span class="text-muted">(Required)</span></label
               >
@@ -195,14 +196,14 @@
               />
             </div>
 
-            <div class="mb-3">
+            <div class="mb-2">
               <label for="message" class="form-label"
                 >Message <span class="text-muted">(Required)</span></label
               >
               <textarea
                 class="form-control"
                 id="message"
-                rows="3"
+                rows="2.5"
                 placeholder="Example: Hello, welcome to our service!"
               ></textarea>
             </div>
@@ -211,7 +212,7 @@
             <div class="d-flex justify-content-center mb-3">
               <button
                 type="button"
-                class="btn btn-sm btn-outline-secondary mb-3"
+                class="btn btn-sm btn-outline-secondary"
                 id="toggleOptionalFields"
               >
                 Show Optional Fields
@@ -220,7 +221,7 @@
 
             <!-- Optional fields -->
             <div id="optionalFields" style="display: none">
-              <div class="mb-3">
+              <div class="mb-2">
                 <label for="icon" class="form-label"
                   >Icon URL <span class="text-muted">(Optional)</span></label
                 >
@@ -232,7 +233,7 @@
                 />
               </div>
 
-              <div class="mb-3">
+              <div class="mb-2">
                 <label for="data" class="form-label"
                   >Data <span class="text-muted">(Optional)</span></label
                 >
@@ -246,16 +247,17 @@
             </div>
 
             <div class="d-flex justify-content-start">
-              <button type="submit" class="btn btn-primary me-1">
+              <button type="submit" class="btn btn-primary me-1 btn-sm">
                 Send Push Notification
               </button>
-              <button type="reset" class="btn btn-outline-secondary">
+              <button type="reset" class="btn btn-outline-secondary btn-sm">
                 Reset Form
               </button>
             </div>
           </form>
         </div>
       </div>
+    </div>
 
       <div class="mt-5">
         <h2>Frequently Asked Questions</h2>
@@ -306,11 +308,11 @@
           Report an Issue
         </button>
       </div>
-
-      <footer class="text-center mt-5">
-        <p>&copy; 2025 Push Notification Tester. All rights reserved.</p>
-      </footer>
     </div>
+
+    <footer class="text-center mt-5">
+      <p>&copy; 2025 Push Notification Tester. All rights reserved.</p>
+    </footer>
 
     <!-- Generate Token Modal -->
     <div
