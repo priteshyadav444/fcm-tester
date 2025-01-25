@@ -51,6 +51,10 @@
         background-color: #ffffff;
         border-bottom: 1px solid #dee2e6;
       }
+      header a {
+        color: #000000;
+        text-decoration: none;
+      }
       nav .btn-signin {
         background-color: #000000;
         color: #ffffff;
@@ -126,9 +130,12 @@
   <body>
     <header class="py-3 mb-2">
       <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="h4 mb-0"><b> Push Notification Tester </b></h1>
+        <a href="/">
+          <h1 class="h4 mb-0"><b> Push Notification Tester </b></h1>
+        </a>
         <nav>
-          <a href="#" class="text-decoration-none me-3">Documentation</a>
+          <a href="generate-device-token" class="text-decoration-none me-3 text-primary">Generate device token</a>
+          <a href="#" class="text-decoration-none me-3 text-primary">Documentation</a>
           <button class="btn btn-signin">Contribute </button>
         </nav>
       </div>
@@ -157,7 +164,7 @@
                   data-bs-toggle="modal"
                   data-bs-target="#generateTokenModal"
                 >
-                  Generate Token
+                  Generate Here
                 </button>
               </div>
             </div>
