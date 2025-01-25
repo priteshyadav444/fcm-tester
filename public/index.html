@@ -15,117 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
       rel="stylesheet"
     />
-
-    <style>
-      body {
-        background-color: #f8f9fa; /* Light theme background */
-        color: #212529; /* Dark text for light theme */
-        font-family: "Poppins", serif;
-      }
-      .card {
-        background-color: #ffffff;
-        color: #212529;
-        border: 1px solid #dee2e6;
-      }
-      .form-control {
-        background-color: #ffffff;
-        color: #212529;
-        border: 1px solid #ced4da;
-      }
-      .form-control:focus {
-        background-color: #ffffff;
-        color: #212529;
-        border-color: #80bdff;
-        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-      }
-      .btn-primary {
-        background-color: #000000;
-        border-color: #000000;
-        color: #ffffff;
-      }
-      .btn-primary:hover {
-        background-color: #333333;
-        border-color: #333333;
-      }
-      header {
-        background-color: #ffffff;
-        border-bottom: 1px solid #dee2e6;
-      }
-      header a {
-        color: #000000;
-        text-decoration: none;
-      }
-      nav .btn-signin {
-        background-color: #000000;
-        color: #ffffff;
-        border: none;
-        padding: 0.375rem 0.75rem;
-      }
-      nav .btn-signin:hover {
-        background-color: #333333;
-      }
-      footer {
-        color: #212529;
-      }
-      .card {
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      .generate-token-btn {
-        margin-top: 5px;
-        display: inline-block;
-        cursor: pointer;
-        font-size: 0.8rem;
-        color: #ffffff;
-        background-color: #000000;
-        border: none;
-        padding: 0.375rem 0.75rem;
-        text-align: center;
-        border-radius: 4px;
-      }
-      .generate-token-btn:hover {
-        background-color: #000000;
-      }
-      .faq-item {
-        margin-bottom: 1rem;
-      }
-      .faq-item button {
-        color: #000000;
-        background-color: #ffffff;
-        border: none;
-        width: 100%;
-        text-align: left;
-        padding: 0.75rem;
-      }
-      .faq-item button:hover {
-        background-color: #dbd8d8;
-      }
-      .faq-item .collapse {
-        padding: 0.75rem;
-        border: 1px solid #eceded;
-        background-color: #f8f9fa;
-      }
-
-      #generateTokenModal .modal-dialog {
-        max-width: 600px;
-      }
-
-      #generateTokenModal .modal-body {
-        font-size: 0.8rem;
-      }
-
-      #useJSONBtn,
-      #useFileBtn {
-        flex: 1;
-        margin-right: 5px;
-      }
-
-      #removeFileBtn {
-        width: 100%;
-        text-align: center;
-      }
-    </style>
-    
+    <link href="./asset/style.css" rel="stylesheet"/>
   </head>
   <body>
     <header class="py-3 mb-2">
@@ -133,10 +23,10 @@
         <a href="/">
           <h1 class="h4 mb-0"><b> Push Notification Tester </b></h1>
         </a>
-        <nav>
+        <nav class="d-flex align-items-center">
           <a href="generate-device-token" class="text-decoration-none me-3 text-primary">Generate device token</a>
           <a href="#" class="text-decoration-none me-3 text-primary">Documentation</a>
-          <button class="btn btn-signin">Contribute </button>
+          <button class="btn btn-signin"> Contribute </button>
         </nav>
       </div>
     </header>
@@ -146,124 +36,145 @@
       <div class="d-flex justify-content-between">
         <div class="card-body">
           <h6 class="text-start mb-2"><b>Push Notification Details</b></h5>
-          <form>
-            <div class="mb-2">
-              <label for="accessToken" class="form-label"
-                >Access Token <span class="text-muted">(Required)</span></label
-              >
-              <div class="d-flex">
-                <input
-                  type="text"
-                  class="form-control me-2"
-                  id="accessToken"
-                  placeholder="Enter access token"
-                />
-                <button
-                  type="button"
-                  class="generate-token-btn btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#generateTokenModal"
-                >
-                  Generate Here
-                </button>
-              </div>
-            </div>
-
-            <div class="mb-2">
-              <label for="deviceToken" class="form-label"
-                >Device Token <span class="text-muted">(Required)</span></label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="deviceToken"
-                placeholder="Example: abc123-device"
-              />
-            </div>
-
-            <div class="mb-2">
-              <label for="projectId" class="form-label"
-                >Project ID <span class="text-muted">(Required)</span></label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="projectId"
-                placeholder="Example: project-12345"
-              />
-            </div>
-
-            <div class="mb-2">
-              <label for="title" class="form-label"
-                >Title <span class="text-muted">(Required)</span></label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                placeholder="Example: Welcome Message"
-              />
-            </div>
-
-            <div class="mb-2">
-              <label for="message" class="form-label"
-                >Message <span class="text-muted">(Required)</span></label
-              >
-              <textarea
-                class="form-control"
-                id="message"
-                rows="2.5"
-                placeholder="Example: Hello, welcome to our service!"
-              ></textarea>
-            </div>
-
-            <!-- Toggle for optional fields -->
-            <div class="d-flex justify-content-center mb-3">
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-secondary"
-                id="toggleOptionalFields"
-              >
-                Show Optional Fields
-              </button>
-            </div>
-
-            <!-- Optional fields -->
-            <div id="optionalFields" style="display: none">
+            <form id="pushNotificationForm">
+              <!-- Access Token or Service File Toggle -->
               <div class="mb-2">
-                <label for="icon" class="form-label"
-                  >Icon URL <span class="text-muted">(Optional)</span></label
-                >
+                <label class="form-label">Authentication Method</label>
+                <div class="d-flex gap-3">
+                  <div>
+                    <input
+                      type="radio"
+                      id="useServiceFile"
+                      name="authMethod"
+                      value="serviceFile"
+                      checked
+                    />
+                    <label for="useServiceFile">Private Key JSON</label>
+                  </div>
+                  <div>
+                    <input
+                      type="radio"
+                      id="useAccessToken"
+                      name="authMethod"
+                      value="accessToken"
+                    />
+                    <label for="useAccessToken">Access Token</label>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Access Token Input -->
+              <div id="accessTokenSection" style="display: none;">
+                <label for="accessToken" class="form-label">Access Token (Required)</label>
+                <div class="d-flex">
+                  <input
+                    type="text"
+                    class="form-control me-2"
+                    id="accessToken"
+                    placeholder="Enter access token"
+                  />
+                  <button
+                    type="button"
+                    class="generate-token-btn btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#generateTokenModal"
+                  >
+                    Generate Here
+                  </button>
+                </div>
+                <div class="mb-2">
+                  <label for="projectId" class="form-label">Project ID (Required)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="projectId"
+                    placeholder="Example: project-12345"
+                  />
+                </div>
+              </div>
+            
+              <!-- Service File Input -->
+              <div id="serviceFileSection" >
+                <label for="serviceFile" class="form-label">Service File (Required)</label>
+                <input type="file" class="form-control" id="serviceFile" accept=".json" />
+              </div>
+            
+              <div class="mb-2">
+                <label for="deviceToken" class="form-label">Device Token (Required)</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="icon"
-                  placeholder="Example: https://example.com/icon.png"
+                  id="deviceToken"
+                  placeholder="Example: abc123-device"
                 />
               </div>
-
+            
+             
+            
               <div class="mb-2">
-                <label for="data" class="form-label"
-                  >Data <span class="text-muted">(Optional)</span></label
-                >
+                <label for="title" class="form-label">Title (Required)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  placeholder="Example: Welcome Message"
+                />
+              </div>
+            
+              <div class="mb-2">
+                <label for="message" class="form-label">Message (Required)</label>
                 <textarea
                   class="form-control"
-                  id="data"
-                  rows="3"
-                  placeholder="Enter JSON data"
+                  id="message"
+                  rows="2.5"
+                  placeholder="Example: Hello, welcome to our service!"
                 ></textarea>
               </div>
-            </div>
-
-            <div class="d-flex justify-content-start">
-              <button type="submit" class="btn btn-primary me-1 btn-sm">
-                Send Push Notification
-              </button>
-              <button type="reset" class="btn btn-outline-secondary btn-sm">
-                Reset Form
-              </button>
-            </div>
-          </form>
+            
+              <!-- Toggle for optional fields -->
+              <div class="d-flex justify-content-center mb-3">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  id="toggleOptionalFields"
+                >
+                  Show Optional Fields
+                </button>
+              </div>
+            
+              <!-- Optional fields -->
+              <div id="optionalFields" style="display: none;">
+                <div class="mb-2">
+                  <label for="icon" class="form-label">Icon URL (Optional)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="icon"
+                    placeholder="Example: https://example.com/icon.png"
+                  />
+                </div>
+            
+                <div class="mb-2">
+                  <label for="data" class="form-label">Data (Optional)</label>
+                  <textarea
+                    class="form-control"
+                    id="data"
+                    rows="3"
+                    placeholder="Enter JSON data"
+                  ></textarea>
+                </div>
+              </div>
+            
+              <div class="d-flex justify-content-start">
+                <button type="submit" class="btn btn-primary me-1 btn-sm">
+                  Send Push Notification
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-sm">
+                  Reset Form
+                </button>
+              </div>
+            </form>
+            
         </div>
       </div>
     </div>
@@ -466,23 +377,329 @@
         </div>
       </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./firebase.js" type="module" ></script>
 
 <script>
-  // JavaScript for toggling optional fields
-  document
-    .getElementById("toggleOptionalFields")
-    .addEventListener("click", function () {
-      const optionalFields = document.getElementById("optionalFields");
-      if (optionalFields.style.display === "none") {
-        optionalFields.style.display = "block";
-        this.textContent = "Hide Optional Fields";
-      } else {
-        optionalFields.style.display = "none";
-        this.textContent = "Show Optional Fields";
+  $(document).ready(function () {
+  // Toggle authentication method
+  $("input[name='authMethod']").on("change", function () {
+    const selectedMethod = $("input[name='authMethod']:checked").val();
+    if (selectedMethod === "accessToken") {
+      $("#accessTokenSection").show();
+      $("#serviceFileSection").hide();
+    } else {
+      $("#accessTokenSection").hide();
+      $("#serviceFileSection").show();
+    }
+  });
+
+  // Show or hide optional fields
+  $("#toggleOptionalFields").on("click", function () {
+    const optionalFields = $("#optionalFields");
+    if (optionalFields.is(":visible")) {
+      optionalFields.hide();
+      $(this).text("Show Optional Fields");
+    } else {
+      optionalFields.show();
+      $(this).text("Hide Optional Fields");
+    }
+  });
+
+  // Handle form submission
+  $("#pushNotificationForm").on("submit", function (e) {
+    e.preventDefault();
+
+    // Collect form data
+    const authMethod = $("input[name='authMethod']:checked").val();
+    const deviceToken = $("#deviceToken").val().trim();
+    const projectId = $("#projectId").val().trim();
+    const title = $("#title").val().trim();
+    const body = $("#message").val().trim();
+    const icon = $("#icon").val().trim();
+    let data = {};
+    try {
+      const dataInput = $("#data").val().trim();
+      if (dataInput) {
+        data = JSON.parse(dataInput);
       }
+    } catch (err) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Data",
+        text: "The data field must contain valid JSON.",
+      });
+      return; 
+    }
+
+
+    let payload = {
+      deviceToken,
+      projectId,
+      title,
+      body,
+      icon,
+      data,
+    };
+
+    // Validate required fields
+    if (!deviceToken || !title || !body || (!projectId && authMethod=='accessToken')) {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please fill all required fields.",
+      });
+      return;
+    }
+
+    // Handle authentication
+    if (authMethod === "accessToken") {
+      const accessToken = $("#accessToken").val().trim();
+      if (!accessToken) {
+        Swal.fire({
+          icon: "error",
+          title: "Validation Error",
+          text: "Access Token is required.",
+        });
+        return;
+      }
+      payload.accessToken = accessToken;
+    } else {
+      const serviceFile = $("#serviceFile")[0].files[0];
+      if (!serviceFile) {
+        Swal.fire({
+          icon: "error",
+          title: "Validation Error",
+          text: "Private key json File is required.",
+        });
+        return;
+      }
+
+      // Read file content and send as JSON
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          payload.serviceAccount = JSON.parse(e.target.result);
+          sendPushNotification(payload);
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "File Error",
+            text: "Invalid JSON file.",
+          });
+        }
+      };
+      reader.readAsText(serviceFile);
+      return; // Exit here as the file reading is asynchronous
+    }
+
+    // Send push notification
+    sendPushNotification(payload);
+  });
+
+  // API call to initiate push notification
+  function sendPushNotification(payload) {
+    $.ajax({
+      url: "/api/initiate-notification",
+      type: "POST",
+      contentType: "application/json",
+      data: JSON.stringify(payload),
+      success: function (response) {
+        if (response.success) {
+          Swal.fire({
+            icon: "success",
+            title: "Notification Sent",
+            text: "Push notification has been successfully sent.",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: response.message || "Failed to send push notification.",
+          });
+        }
+      },
+      error: function (xhr) {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: xhr.responseJSON?.message || "An unexpected error occurred.",
+        });
+      },
     });
+  }
+});
+
+
+  // Handle file removal button
+  $('#generateTokenModal').on('hidden.bs.modal', function () {
+      // Reset the form
+      $("#generateTokenForm")[0].reset();
+      $("#privateKeyFile").val("");
+      $("#privateKeyJSON").val("");
+      // Hide the "Remove File" button initially
+      $("#removeFileBtn").hide();
+  });
+
+  $("#removeFileBtn").on("click", function () {
+    $("#privateKeyFile").val(""); // Clear the file input
+    $(this).hide(); // Hide the "Remove File" button
+  });
+
+  // Handle file input change
+  $("#privateKeyFile").on("change", function () {
+    if (this.files && this.files[0]) {
+      // Show "Remove File" button if a file is uploaded
+      $("#removeFileBtn").show();
+    } else {
+      // Hide "Remove File" button if no file is selected
+      $("#removeFileBtn").hide();
+    }
+    
+  });
+
+
+  // Handle Generate Access Token button click
+  $("#generateTokenBtn").on("click", function (e) {
+    e.preventDefault();
+
+    const privateKeyJSON = $("#privateKeyJSON").val().trim();
+    const privateKeyFile = $("#privateKeyFile")[0].files[0];
+    const apiUrl = "/api/generate-access-token"; // Your API endpoint
+
+    // Validate input
+    if (!privateKeyJSON && !privateKeyFile) {
+      Swal.fire({
+        icon: "error",
+        title: "Validation Error",
+        text: "Please provide either a private key JSON or upload a private key file.",
+      });
+      return;
+    }
+
+    // Show a loading state
+    Swal.fire({
+      title: "Generating Access Token...",
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    // Function to send the API request
+    const sendRequest = (jsonContent) => {
+      const payload = jsonContent;
+      console.log(payload);
+      
+      // Make API request
+      $.ajax({
+        url: apiUrl,
+        type: "POST",
+        contentType: "application/json",
+        data: payload,
+        success: function (response) {
+          if (response.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Access Token Generated",
+              html: `
+                <p>Access Token:</p>
+                <textarea class="form-control" id="accessToken" readonly rows="5">${response.data.accessToken}</textarea>
+              `,
+              footer: `
+                <button id="copyAccessTokenBtn" class="btn btn-secondary">Copy and Close</button>
+                <button id="closeSwalBtn" class="btn btn-primary">Close</button>
+              `,
+              showConfirmButton: false, // Hide the default confirm button
+              didOpen: () => {
+                // Handle the "Copy" button click
+                document.getElementById("copyAccessTokenBtn").addEventListener("click", () => {
+                  const accessToken = document.getElementById("accessToken");
+                  accessToken.select(); // Select the text in the textarea
+                  accessToken.setSelectionRange(0, 99999); // For mobile devices
+                  $('#generateTokenModal').modal('hide');
+
+                  navigator.clipboard
+                    .writeText(accessToken.value)
+                    .then(() => {
+                      Swal.fire({
+                        icon: "success",
+                        title: "Copied!",
+                        text: "Access token copied to clipboard.",
+                        timer: 1500,
+                        showConfirmButton: false,
+                      });
+                      $('#generateTokenModal').modal('hide');
+                    })
+                    .catch(() => {
+                      Swal.fire({
+                        icon: "error",
+                        title: "Copy Failed",
+                        text: "Could not copy the access token.",
+                        timer: 1500,
+                        showConfirmButton: false,
+                      });
+                    });
+    });
+
+            // Handle the "Close" button click
+            document.getElementById("closeSwalBtn").addEventListener("click", () => {
+              Swal.close(); // Close the Swal modal
+              $('#generateTokenModal').modal('hide');
+              $("#privateKeyFile").val("");
+            });
+          },
+        });
+
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: response.message || "Failed to generate access token.",
+            });
+          }
+        },
+        error: function (xhr) {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: xhr.responseJSON?.error || "An unexpected error occurred.",
+          });
+        },
+      });
+    };
+
+    // If file is uploaded, read its content
+    if (privateKeyFile) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        try {
+          const fileContent = e.target.result;
+          sendRequest(fileContent); // Send the file content as JSON
+        } catch (err) {
+          Swal.fire({
+            icon: "error",
+            title: "File Error",
+            text: "Failed to read the file content.",
+          });
+        }
+      };
+      reader.onerror = function () {
+        Swal.fire({
+          icon: "error",
+          title: "File Error",
+          text: "An error occurred while reading the file.",
+        });
+      };
+      reader.readAsText(privateKeyFile); // Read file as text
+    } else {
+      // Use the JSON string from the input field
+      sendRequest(privateKeyJSON);
+    }
+  });
+
 </script>
