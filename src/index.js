@@ -10,9 +10,9 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Route to serve the HTML file
-app.get("/home", (req, res) => {
+app.get("/generate-device-token", (req, res) => {
   console.log("asdasd");
-  res.sendFile(path.join(__dirname, "..", "public", "index.html"));
+  res.sendFile(path.join(__dirname, "..", "public", "web-push.html"));
 });
 
 app.get("/test", (req, res) => {
