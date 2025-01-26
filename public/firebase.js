@@ -67,8 +67,8 @@ function initializeFirebase(config, vapidKey) {
         .then(() => {
           console.log("Deleted existing Firebase app.");
           // Now, initialize the new app with the provided config
-          const app = initializeApp(config);
-          const messaging = getMessaging(app);
+           app = initializeApp(config);
+           messaging = getMessaging(app);
           $("#app-status").text("Firebase app initialized successfully!");
           localStorage.setItem(
             "firebaseConfig",
