@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const FirebaseHelper = require("../util/firebaseHelper");
+const nodemailer = require("nodemailer");
 
 // API to generate a custom Firebase token
 router.post("/generate-access-token", async (req, res) => {
@@ -98,7 +99,7 @@ router.post("/initiate-notification", validatePushRequest, async (req, res) => {
     body,
     icon,
     data,
-    serviceAccount
+    serviceAccount,
   } = req.body;
 
   try {
@@ -128,7 +129,7 @@ router.post("/initiate-notification", validatePushRequest, async (req, res) => {
 
     const responseData = await fcmResponse.json();
     console.log(responseData);
-    
+
     if (!fcmResponse.ok) {
       throw new Error(
         `FCM API Error: ${responseData.error.message || "Unknown error"}`
@@ -146,6 +147,51 @@ router.post("/initiate-notification", validatePushRequest, async (req, res) => {
       success: false,
       data: { errorMessage: error.message },
     });
+  }
+});
+
+router.post("/send-email", async (req, res) => {
+  const { name, email, message, type } = req.body;
+
+  // Validation
+  if (!name || !email || !message || !type) {
+    return res
+      .status(400)
+      .json({ message: "Validation error: All fields are required.", success: false });
+  }
+
+  try {
+    // Configure Nodemailer transporter
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER, // Your admin email from .env
+        pass: process.env.EMAIL_PASSWORD, // Your email password or app password
+      },
+    });
+
+    // Email Content
+    const mailOptions = {
+      from: email,
+      to: process.env.ADMIN_EMAIL,
+      subject:
+        type === "support" ? "Contact Support Request" : "Issue Reported",
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    };
+
+    // Send Email
+    await transporter.sendMail(mailOptions);
+    res
+      .status(200)
+      .json({ message: "Email sent successfully!", success: true });
+  } catch (error) {
+    console.error("Error sending email:", error);
+    res.status(500).json({ message: "Failed to send email.", success: false });
   }
 });
 

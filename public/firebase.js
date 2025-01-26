@@ -230,7 +230,9 @@ function setupOnMessage() {
         data: payload.notification,
       };
       new Notification(notificationTitle, notificationOptions).onclick = () => {
-        window.open(payload.notification.click_action, "_blank").focus();
+        window
+          .open(payload?.data?.url || "https://testfcm.online", "_blank")
+          .focus();
       };
     });
   } else {
@@ -254,7 +256,6 @@ if ("serviceWorker" in navigator) {
 }
 
 $(document).ready(() => {
-  console.log(savedConfig);
   if (savedConfig?.firebaseConfig && savedConfig?.vapidKey) {
     initializeFirebase(savedConfig.firebaseConfig, savedConfig.vapidKey);
     displayConfig();

@@ -2,7 +2,9 @@ node_modules/*
 package-lock.json
 deployment.txt
 .firebase/hosting.cHVibGlj.cache
-.env
 .firebaserc
 .gitignore
 firebase.json
+.env
+.env.pro
+.env.local
