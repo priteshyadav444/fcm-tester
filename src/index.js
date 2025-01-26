@@ -5,6 +5,8 @@ const functions = require("firebase-functions");
 const rateLimit = require("express-rate-limit");
 const webRoutes = require("./routes/web");
 const apiRoutes = require("./routes/api"); 
+var compression = require('compression')
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -35,6 +37,9 @@ app.use(express.static(path.join(__dirname, "..", "public")));
 
 // Middleware for parsing JSON requests
 app.use(express.json());
+
+app.use(compression())
+
 
 // Use the routes from the external file
 app.use("/api", apiRoutes);
