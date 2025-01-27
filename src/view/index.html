@@ -84,6 +84,10 @@
       rel="stylesheet"
     />
     <link href="asset/style.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.min.css"
+    />
   </head>
   <body>
     <header class="py-3 mb-2">
@@ -92,11 +96,6 @@
           <h1 class="h4 mb-0"><b> Push Notification Tester </b></h1>
         </a>
         <nav class="d-flex align-items-center">
-          <a
-            href="generate-device-token"
-            class="text-decoration-none me-3 text-primary"
-            >Generate device token</a
-          >
           <a
             class="btn btn-signin"
             target="_blank"
@@ -108,172 +107,226 @@
       </div>
     </header>
 
-    <div class="container py-1">
-      <div class="card shadow">
-        <div class="d-flex justify-content-between">
-          <div class="card-body">
-            <h6 class="text-start mb-2"><b>Push Notification Details</b></h6>
-            <form id="pushNotificationForm">
-              <!-- Access Token or Service File Toggle -->
-              <div class="mb-2">
-                <label class="form-label">Authentication Method</label>
-                <div class="d-flex gap-3">
-                  <div>
-                    <input
-                      type="radio"
-                      id="useServiceFile"
-                      name="authMethod"
-                      value="serviceFile"
-                      checked
-                    />
-                    <label for="useServiceFile">Private Key JSON</label>
-                  </div>
-                  <div>
-                    <input
-                      type="radio"
-                      id="useAccessToken"
-                      name="authMethod"
-                      value="accessToken"
-                    />
-                    <label for="useAccessToken">Access Token</label>
-                  </div>
-                </div>
-              </div>
+    <div class="container py-5">
+      <div class="d-flex flex-column flex-md-row">
+        <!-- Left Section -->
+        <div class="me-md-4 mb-4 mb-sm-0" style="flex: 1; max-width: 40%">
+          <div class="p-3">
+            <h4 class="mb-3">Welcome to Our Push Notification Platform</h4>
+            <p>
+              Our platform simplifies the process of testing push notifications.
+              With an intuitive interface and robust features, you can easily:
+            </p>
+            <ul>
+              <li>Authenticate using a private key JSON or access token.</li>
+              <li>
+                Send personalized notifications with custom titles and messages.
+              </li>
+              <li>Include optional data like icons and JSON payloads.</li>
+            </ul>
 
-              <!-- Access Token Input -->
-              <div id="accessTokenSection" style="display: none">
-                <label for="accessToken" class="form-label"
-                  >Access Token (Required)</label
-                >
-                <div class="d-flex">
-                  <input
-                    type="text"
-                    class="form-control me-2"
-                    id="accessToken"
-                    placeholder="Enter access token"
-                  />
-                  <button
-                    type="button"
-                    class="generate-token-btn btn-sm"
-                    data-bs-toggle="modal"
-                    data-bs-target="#generateTokenModal"
-                  >
-                    Generate Here
-                  </button>
+            <p>
+              <strong>Note:</strong> We do not store your private key. It is
+              used only to generate the Access Token. Choose either to upload a
+              private key file or use Access Token.
+            </p>
+            <p>
+              If you want to contribute to this project, you can do so by
+              clicking on the "Contribute" link in the header. It will redirect
+              you to the GitHub repository.
+            </p>
+            <p>
+              If you face any issues or need support, you can easily report them
+              or contact our support team. Scroll down and you'll find buttons
+              for <strong>Contact Support</strong> and
+              <strong>Report Issue</strong>.
+            </p>
+            <p class="text-muted">
+              <small
+                >Your privacy and data security are our top priorities.</small
+              >
+            </p>
+          </div>
+        </div>
+
+        <!-- Form Section -->
+        <div class="card shadow mb-sm-0" style="flex: 1; max-width: 50%">
+          <div class="d-flex justify-content-between">
+            <div class="card-body">
+              <h6 class="text-start mb-3"><b>Test Push Notification </b></h6>
+              <form id="pushNotificationForm">
+                <!-- Access Token or Service File Toggle -->
+                <div class="mb-3">
+                  <!-- <label class="form-label">Authentication Method</label> -->
+                  <div class="d-flex gap-4">
+                    <div>
+                      <input
+                        type="radio"
+                        id="useServiceFile"
+                        name="authMethod"
+                        value="serviceFile"
+                        checked
+                      />
+                      <label for="useServiceFile">
+                        Using Private Key JSON</label
+                      >
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        id="useAccessToken"
+                        name="authMethod"
+                        value="accessToken"
+                      />
+                      <label for="useAccessToken">Using Access Token</label>
+                    </div>
+                  </div>
                 </div>
-                <div class="mb-2">
-                  <label for="projectId" class="form-label"
-                    >Project ID (Required)</label
+
+                <!-- Access Token Input -->
+                <div id="accessTokenSection" style="display: none">
+                  <label for="accessToken" class="form-label"
+                    >Access Token (Required)</label
+                  >
+                  <div class="d-flex">
+                    <input
+                      type="text"
+                      class="form-control me-2"
+                      id="accessToken"
+                      placeholder="Enter access token"
+                    />
+                    <button
+                      type="button"
+                      class="generate-token-btn btn btn-sm btn-secondary"
+                      data-bs-toggle="modal"
+                      data-bs-target="#generateTokenModal"
+                    >
+                      Generate Here
+                    </button>
+                  </div>
+                  <div class="mt-3">
+                    <label for="projectId" class="form-label"
+                      >Project ID (Required)</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="projectId"
+                      placeholder="Example: project-12345"
+                    />
+                  </div>
+                </div>
+
+                <!-- Service File Input -->
+                <div id="serviceFileSection" class="mt-3">
+                  <label
+                    for="serviceFile"
+                    class="form-label d-flex justify-content-start align-items-center"
+                  >
+                    Private Key JSON (Required)
+                    <button
+                      type="button"
+                      class="btn btn-primary btn-sm text-white m-1"
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      title="Note: We do not store your private key. It is used only to generate the Access Token. Choose either to paste your private key JSON or upload a private key file."
+                    >
+                      i
+                    </button>
+                  </label>
+                  <div id="dragDropFileArea" class="dropzone"></div>
+                </div>
+
+                <div class="mt-4">
+                  <label for="deviceToken" class="form-label"
+                    >Device Token (Required)</label
                   >
                   <input
                     type="text"
                     class="form-control"
-                    id="projectId"
-                    placeholder="Example: project-12345"
+                    id="deviceToken"
+                    placeholder="Example: abc123-device"
                   />
                 </div>
-              </div>
 
-              <!-- Service File Input -->
-              <div id="serviceFileSection">
-                <label for="serviceFile" class="form-label"
-                  >Private Key JSON (Required)</label
-                >
-                <input
-                  type="file"
-                  class="form-control"
-                  id="serviceFile"
-                  accept=".json"
-                />
-              </div>
-
-              <div class="mb-2">
-                <label for="deviceToken" class="form-label"
-                  >Device Token (Required)</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="deviceToken"
-                  placeholder="Example: abc123-device"
-                />
-              </div>
-
-              <div class="mb-2">
-                <label for="title" class="form-label">Title (Required)</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="title"
-                  placeholder="Example: Welcome Message"
-                />
-              </div>
-
-              <div class="mb-2">
-                <label for="message" class="form-label"
-                  >Message (Required)</label
-                >
-                <textarea
-                  class="form-control"
-                  id="message"
-                  rows="2.5"
-                  placeholder="Example: Hello, welcome to our service!"
-                ></textarea>
-              </div>
-
-              <!-- Toggle for optional fields -->
-              <div class="d-flex justify-content-center mb-3">
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-secondary"
-                  id="toggleOptionalFields"
-                >
-                  Show Optional Fields
-                </button>
-              </div>
-
-              <!-- Optional fields -->
-              <div id="optionalFields" style="display: none">
-                <div class="mb-2">
-                  <label for="icon" class="form-label"
-                    >Icon URL (Optional)</label
-                  >
+                <div class="mt-4">
+                  <label for="title" class="form-label">Title (Required)</label>
                   <input
                     type="text"
                     class="form-control"
-                    id="icon"
-                    placeholder="Example: https://example.com/icon.png"
+                    id="title"
+                    placeholder="Example: Welcome Message"
                   />
                 </div>
 
-                <div class="mb-2">
-                  <label for="data" class="form-label">Data (Optional)</label>
+                <div class="mt-4">
+                  <label for="message" class="form-label"
+                    >Message (Required)</label
+                  >
                   <textarea
                     class="form-control"
-                    id="data"
+                    id="message"
                     rows="3"
-                    placeholder="Enter JSON data"
+                    placeholder="Example: Hello, welcome to our service!"
                   ></textarea>
                 </div>
-              </div>
 
-              <div class="d-flex justify-content-start">
-                <button
-                  type="submit"
-                  id="sendPushNotificationBtn"
-                  class="btn btn-primary me-1 btn-sm"
-                >
-                  Send Push Notification
-                </button>
-                <button type="reset" class="btn btn-outline-secondary btn-sm">
-                  Reset Form
-                </button>
-              </div>
-            </form>
+                <!-- Toggle for optional fields -->
+                <div class="d-flex justify-content-center my-4">
+                  <button
+                    type="button"
+                    class="btn btn-outline-secondary btn-sm"
+                    id="toggleOptionalFields"
+                  >
+                    Hide Optional Fields
+                  </button>
+                </div>
+
+                <!-- Optional fields -->
+                <div id="optionalFields">
+                  <div class="mt-4">
+                    <label for="icon" class="form-label"
+                      >Icon URL (Optional)</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="icon"
+                      placeholder="Example: https://example.com/icon.png"
+                    />
+                  </div>
+
+                  <div class="mt-4">
+                    <label for="data" class="form-label">Data (Optional)</label>
+                    <textarea
+                      class="form-control"
+                      id="data"
+                      rows="3"
+                      placeholder="Enter JSON data"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-start mt-4">
+                  <button
+                    type="submit"
+                    id="sendPushNotificationBtn"
+                    class="btn btn-primary me-3 btn-sm"
+                  >
+                    Send Push Notification
+                  </button>
+                  <button type="reset" class="btn btn-outline-secondary btn-sm">
+                    Reset Form
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="container py-5">
       <div class="mt-5">
         <h2>Frequently Asked Questions</h2>
         <div class="faq-item">
@@ -461,8 +514,7 @@
 
             <small class="text-danger text-s">
               Note : We do not store your private key. It is used only to
-              generate the Access Token. Choose either to paste your private key
-              JSON or upload a private key file.
+              generate the Access Token.
             </small>
 
             <a href="#" class="d-block mt-3"
@@ -544,6 +596,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/min/dropzone.min.js"></script>
+
 <script src="firebase.js" type="module"></script>
 <!-- Google tag (gtag.js) -->
 <script
@@ -561,6 +615,81 @@
 </script>
 
 <script>
+  // Initialize Dropzone
+  const dropzone = new Dropzone("#dragDropFileArea", {
+    url: "/upload", // Replace with your upload endpoint
+    autoProcessQueue: false,
+    clickable: true,
+    maxFiles: 1,
+    acceptedFiles: ".json",
+    dictDefaultMessage: "Drag and drop your file here, or click to upload",
+  });
+
+  let serviceAccountJson = null;
+  let isFileAdded = false; // Flag to track if a file is uploaded
+
+  dropzone.on("addedfile", (file) => {
+    // Prevent file upload if one is already added
+    if (isFileAdded) {
+      Swal.fire({
+        icon: "warning",
+        title: "File Limit Exceeded",
+        text: "You can only upload one file. Please remove the existing file before uploading another.",
+      });
+      dropzone.removeFile(file); // Remove the newly added file
+      return; // Exit the function to prevent further action
+    }
+
+    // Check if the file is a JSON file
+    const fileExtension = file.name.split(".").pop().toLowerCase();
+    if (fileExtension !== "json") {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid File Type",
+        text: "Only .json files are allowed. Please upload a valid JSON file.",
+      });
+      dropzone.removeFile(file); // Remove the invalid file
+      return; // Exit the function to prevent further action
+    }
+
+    const removeButton = Dropzone.createElement(
+      '<button class="btn btn-danger btn-sm mt-1">Remove</button>'
+    );
+
+    // Add click event to remove the file
+    removeButton.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      isFileAdded = false; // Reset the flag when file is removed
+      serviceAccountJson = null;
+      // Remove the file from Dropzone
+      dropzone.removeFile(file);
+    });
+
+    // Append the remove button to the file preview
+    file.previewElement.appendChild(removeButton);
+
+    console.log("File added:", file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        isFileAdded = true; // Mark file as added
+        serviceAccountJson = JSON.parse(e.target.result);
+      } catch (err) {
+        // Handle JSON parsing error
+        Swal.fire({
+          icon: "error",
+          title: "File Error",
+          text: "Invalid JSON file. Please upload a valid JSON file.",
+        });
+        dropzone.removeFile(file); // Remove the invalid file
+      }
+    };
+
+    // Read the file content as text
+    reader.readAsText(file);
+  });
+
   $(document).ready(function () {
     const currentURL = encodeURIComponent(window.location.href);
 
@@ -724,8 +853,8 @@
         }
         payload.accessToken = accessToken;
       } else {
-        const serviceFile = $("#serviceFile")[0].files[0];
-        if (!serviceFile) {
+        payload.serviceAccount = serviceAccountJson;
+        if (!isFileAdded) {
           Swal.fire({
             icon: "error",
             title: "Validation Error",
@@ -733,23 +862,6 @@
           });
           return;
         }
-
-        // Read file content and send as JSON
-        const reader = new FileReader();
-        reader.onload = function (e) {
-          try {
-            payload.serviceAccount = JSON.parse(e.target.result);
-            sendPushNotification(payload);
-          } catch (err) {
-            Swal.fire({
-              icon: "error",
-              title: "File Error",
-              text: "Invalid JSON file.",
-            });
-          }
-        };
-        reader.readAsText(serviceFile);
-        return; // Exit here as the file reading is asynchronous
       }
 
       // Send push notification

@@ -200,3 +200,40 @@ body {
     border: 1px solid #eceded;
     background-color: #f8f9fa;
   }
+
+  /* Drag and Drop Area Styles */
+#dragDropFileArea {
+  border: 2px dashed #000000;
+  border-radius: 12px;
+  background-color: #f8f9fa;
+  padding: 20px;
+  text-align: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#dragDropFileArea:hover {
+  background-color: #e9f5ff;
+  border-color: #000000;
+}
+
+#dragDropFileArea p {
+  font-size: 16px;
+  color: #000000;
+  margin: 0;
+}
+
+#dragDropFileArea .dz-default.dz-message {
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#dragDropFileArea.dz-drag-hover {
+  background-color: #cfe2ff;
+  border-color: #000000;
+}
+
+/* Hide the Dropzone progress bar */
+.dropzone .dz-progress {
+  display: none !important;
+}
