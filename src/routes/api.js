@@ -34,7 +34,6 @@ router.post("/generate-access-token", async (req, res) => {
       data: { accessToken },
     });
   } catch (error) {
-    console.log("here");
     res.status(500).json({
       message: "Failed to generate access token.",
       success: false,
@@ -128,8 +127,6 @@ router.post("/initiate-notification", validatePushRequest, async (req, res) => {
     });
 
     const responseData = await fcmResponse.json();
-    console.log(responseData);
-
     if (!fcmResponse.ok) {
       throw new Error(
         `FCM API Error: ${responseData.error.message || "Unknown error"}`
@@ -140,8 +137,6 @@ router.post("/initiate-notification", validatePushRequest, async (req, res) => {
       .status(200)
       .json({ message: "Notification sent via FCM API.", success: true });
   } catch (error) {
-    console.error("Error:", error);
-
     return res.status(500).json({
       message: `Failed to send notification. : ${error?.message}`,
       success: false,
