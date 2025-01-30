@@ -52,4 +52,10 @@ if (process.env.APP_ENV == "local") {
 // Firebase Functions setup for production
 if (process.env.APP_ENV == "production") {
   exports.api = functions.https.onRequest(app);
+} else {
+  // if (process.env.APP_ENV == "local") {
+  //   app.listen(PORT, () => {
+  //     console.log(`Server is running at http://localhost:${PORT}`);
+  //   });
+  // }
 }
