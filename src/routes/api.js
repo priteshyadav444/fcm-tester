@@ -150,9 +150,10 @@ router.post("/send-email", async (req, res) => {
 
   // Validation
   if (!name || !email || !message || !type) {
-    return res
-      .status(400)
-      .json({ message: "Validation error: All fields are required.", success: false });
+    return res.status(400).json({
+      message: "Validation error: All fields are required.",
+      success: false,
+    });
   }
 
   try {
@@ -188,6 +189,12 @@ router.post("/send-email", async (req, res) => {
     console.error("Error sending email:", error);
     res.status(500).json({ message: "Failed to send email.", success: false });
   }
+});
+
+router.post("/blog-file-upload", async (req, res) => {
+  res.status(200).json({
+    url: "http://localhost:3000/asset/image/logo.jpg",
+  });
 });
 
 module.exports = router;
