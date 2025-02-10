@@ -38,6 +38,16 @@ app.use(express.json());
 
 app.use(compression());
 
+app.use((req, res, next) => {
+  const blockedPaths = ["/wp-admin", "/wp-login", "/xmlrpc.php"];
+  if (blockedPaths.some((path) => req.path.includes(path))) {
+    console.log(`Blocked attempt: ${req.path}`);
+    return res.status(403).send("Forbidden");
+  }
+  next();
+});
+
+
 // Use the routes from the external file
 app.use("/api", apiRoutes);
 app.use("/", webRoutes);
